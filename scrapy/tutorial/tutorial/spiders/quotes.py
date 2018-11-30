@@ -14,7 +14,7 @@ class QuotesSpider(scrapy.Spider):
             item=QuoteItem()
             item['text']=quote.css('.text::text').extract_first()
             item['author'] = quote.css('.author::text').extract_first()
-            item['tags'] = quote.css('.tags::text').extract()
+            item['tags'] = quote.css('.tags .tag::text').extract()
             yield item
 
         next=response.css('.pager .next a::aattr("href")').extract_first()
