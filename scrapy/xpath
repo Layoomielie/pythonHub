@@ -1,0 +1,46 @@
+http://doc.scrapy.org/en/latest/_static/selectors-sample1.html
+
+xpath
+result=response.selector.xpath('//a')
+
+./代表找的是子元素    //代表找的是根元素
+result=response.selector.xpath('./img')
+
+extract 代表将结果提取出来
+result.extract()
+
+提取第一个元素
+result[0]
+
+提取某属性值的元素
+response.xpath('//a[@href="image1.html"]/text()').extract()
+
+提取属性值的第一个元素  如果不存在返回default
+response.xpath('//a[@href="images1"]/text()').extract_first('Default Image')
+
+css
+response.css('a').extract()
+
+嵌套选择
+response.css('a[href="image1.html"] img').extract_first()
+
+文本
+response.css('a[href="image1.html"]::text').extract_first()
+
+选择属性
+response.css('a[href="image1.html"] img::attr(src)').extract_first()
+
+正则匹配
+
+返回所有匹配的元素
+response.xpath('//a/text()').re('(.*?):\s(.*)')
+
+返回的第一个匹配的元素
+response.xpath('//a/text()').re_first('(.*?):\s(.*)')
+
+response 不能直接调用  可以先使用 xpath('.').re   '.' 选中全文
+
+
+
+
+

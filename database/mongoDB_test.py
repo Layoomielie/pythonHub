@@ -5,7 +5,7 @@ import pymongo
 
 client = pymongo.MongoClient(host='localhost', port=27017)
 
-db = client['demo']
+db = client['python']
 
 collection = db['students']
 
@@ -22,10 +22,10 @@ student2 = {
     'gender': 'male'
 }
 
-# insert插入
-# result=collection.insert([student1,student2])
-# result=collection.insert_many([student1,student2])
-#
+#insert插入
+result=collection.insert([student1,student2])
+#result=collection.insert_many([student1,student2])
+
 # print(result)
 # print(result.inserted_ids)
 # print(result)
@@ -52,13 +52,13 @@ student2 = {
 # print([result['name'] for result in results])
 
 # 更新  update  update_many update_one
-condition = {'name': 'jordan'}
+# condition = {'name': 'jordan'}
 # student=collection.find_one(condition)
 # student['age']=25
 # result=collection.update(condition,student)
 # print(result)
 
 # 查询到条件的数据值加1
-result=collection.update_one(condition,{'$inc':{'age':1}})
-print(result)
-print(result.matched_count,result.modified_count)
+# result=collection.update_one(condition,{'$inc':{'age':1}})
+# print(result)
+# print(result.matched_count,result.modified_count)
