@@ -1,0 +1,17 @@
+
+process_request(request,spider)
+
+下载器下载之前调用  根据权重值决定调用顺序
+返回值为none时 继续执行其他类中的 process_request 方法 最后到download
+返回值为request时  会把request重新放入到队列中，process_request 再按顺序执行一遍
+返回值为response时  process_request 和 exception 不会被调用  紧接着会调用 process_response
+IgnoreRequest 异常时 process_exception  会依次执行处理异常 如果没有方法进行处理 会调用request中的 errorback函数
+
+process_response(request,response,spider)
+
+下载器调用之后使用
+返回值为 request时  process_response 不会被调用 request会放入到队列中重新请求
+返回值为 response时  process_response 会依次调用 对response进行处理
+IgnoreResponse 异常时 request中的 errorback 会回调
+
+

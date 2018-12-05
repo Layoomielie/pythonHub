@@ -4,6 +4,12 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/scrapy/tutorial" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/scrapy/tutorial/tutorial" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/scrapy/scrapydownloadertest" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/scrapy/scrapydownloadertest/scrapydownloadertest" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/scrapy/images360" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/scrapy/images360/images360" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/scrapy/MeiziTu" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/scrapy/MeiziTu/MeiziTu" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
