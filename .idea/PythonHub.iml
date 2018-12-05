@@ -10,6 +10,10 @@
       <sourceFolder url="file://$MODULE_DIR$/scrapy/images360/images360" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/scrapy/MeiziTu" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/scrapy/MeiziTu/MeiziTu" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/scrapy/qianming" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/scrapy/qianming/qianming" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/scrapy/scrapySeleniumTest/scrapySeleniumTest" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/scrapy/scrapySeleniumTest" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
