@@ -11,7 +11,7 @@ class MongoPipeline(object):
             mongo_db=crawler.settings.get('MONGO_DB')
         )
     def open_spider(self,spider):
-        self.client = pymongo.MongoClient(host='localhost', port=27017)
+        self.client = pymongo.MongoClient(host='139.224.233.92', port=27017)
         self.db=self.client[self.mong_db]
 
     def process_item(self,item,spider):
