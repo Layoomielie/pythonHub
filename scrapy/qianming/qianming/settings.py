@@ -14,7 +14,7 @@ BOT_NAME = 'qianming'
 SPIDER_MODULES = ['qianming.spiders']
 NEWSPIDER_MODULE = 'qianming.spiders'
 
-MONGO_URL='localhost'
+MONGO_URL='139.224.233.92'
 MONGO_DB='python'
 
 MYSQL_HOST='localhost'

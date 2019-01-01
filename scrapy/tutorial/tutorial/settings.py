@@ -68,7 +68,7 @@ ITEM_PIPELINES = {
     'tutorial.pipelines.TextPipeline': 300,
     'tutorial.pipelines.MongoPipeline': 300,
 }
-MONGO_URL='localhost'
+MONGO_URL='139.224.233.92'
 MONGO_DB='python'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
