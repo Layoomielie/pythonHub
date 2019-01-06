@@ -14,6 +14,8 @@ BOT_NAME = 'zhihuuser'
 SPIDER_MODULES = ['zhihuuser.spiders']
 NEWSPIDER_MODULE = 'zhihuuser.spiders'
 
+MONGO_URI='localhost'
+MONGO_DATABASE='ZHIHU'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'zhihuuser (+http://www.yourdomain.com)'
@@ -65,9 +67,9 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'zhihuuser.pipelines.ZhihuuserPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'zhihuuser.pipelines.MongoPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
