@@ -37,7 +37,7 @@ DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 
 REDIS_URL = 'redis://root:44253432@47.101.171.168:6379'
 #设置断点续爬
-SCHEDULER_PERSIST = False
+SCHEDULER_PERSIST = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
