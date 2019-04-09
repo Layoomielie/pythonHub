@@ -8,19 +8,22 @@ from qiancheng.items import QianchengItem
 
 class WuyouSpider(scrapy.Spider):
     name = 'wuyou'
-    allowed_domains = ['51job.com']
+    allowed_domains = ['www.51job.com']
     start_urls = ['https://www.51job.com/']
     url='https://search.51job.com/list/{city},000000,0000,00,9,99,%2B,2,1.html?lang=c&stype=1&postchannel=0000&workyear={workyear}&cotype={cotype}&degreefrom={degree}&jobterm={jobterm}&companysize={companysize}&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=8&dibiaoid=0&address=&line=&specialarea=00&from=&welfare='
-    citydict={'010000':'北京','020000':'上海','030200':'广州','040000':'深圳','080200':'杭州'}
+    dayurl = 'https://search.51job.com/list/{city},000000,0000,00,0,99,%2B,2,1.html?lang=c&stype=1&postchannel=0000&workyear={workyear}&cotype={cotype}&degreefrom={degree}&jobterm={jobterm}&companysize={companysize}&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=8&dibiaoid=0&address=&line=&specialarea=00&from=&welfare='
+
+    citydict={'010000':'北京','020000':'上海','030200':'广州','040000':'深圳','080200':'杭州','180200':'武汉','200200':'西安','070200':'南京','090200':'成都','060000':'重庆','030800':'东莞','230300':'大连','230200':'沈阳','070300':'苏州','250200':'昆明','190200':'长沙','150200':'合肥','080300':'宁波','170200':'郑州','050000':'天津','120300':'青岛','120200':'济南','030600':'佛山','030500':'珠海'}
     cotypedict={'01':'外资(欧美)','02':'外资(非欧美)','03':'合资','04':'国企','05':'民营公司','06':'外企代表处','07':'政府机关','08':'事业单位','09':'非盈利组织','10':'上市公司','11':'创业公司'}
     workyeardict={'01':'无经验','02':'1-3年','03':'3-5年','04':'5-10年','05':'10年以上'}
     companysizedict = {'01': '少于50人', '02': '50-150人', '03': '150-500人', '04': '500-1000人', '05': '1000-5000人', '06': '5000-10000人', '07': '10000人以上'}
     jobtermdict={'01':'全职','02':'兼职','03':'实习全职','04':'实习兼职'}
     degreedict={'01':'初中及以下','02':'高中/中技/中专','03':'大专','04':'本科','05':'硕士','06':'博士'}
 
-    minprice=0.0
-    maxprice=0.0
-    avgprice=0.0
+    minprice = 0.0
+    maxprice = 0.0
+    avgprice = 0.0
+
 
     def start_requests(self):
         for city in self.citydict:
@@ -31,7 +34,7 @@ class WuyouSpider(scrapy.Spider):
                             for degree in self.degreedict:
                                 dict={'city':self.citydict[city],'cotype':self.cotypedict[cotype],'workyear':self.workyeardict[workyear],'companySize':self.companysizedict[companysize],'jobTerm':self.jobtermdict[jobterm],'degree':self.degreedict[degree]}
                                 yield Request(self.url.format(city=city,cotype=cotype,workyear=workyear,companysize=companysize,jobterm=jobterm,degree=degree),self.parse,meta=dict)
-                                #yield Request('https://search.51job.com/list/080200,000000,0000,00,9,99,%2520,2,1.html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare=',self.parse)
+                                #yield Request('https://search.51job.com/list/010000,000000,0000,00,9,99,%2520,2,1.html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare=',self.parse,meta=dict)
 
 
     def parse(self, response):
@@ -43,8 +46,10 @@ class WuyouSpider(scrapy.Spider):
             region='未知'
             if '-' in regioninfo:
                 region=regioninfo.split('-')[1]
-
             price = line.css('span.t4::text').extract_first()
+            self.avgprice = 0.0
+            self.minprice = 0.0
+            self.maxprice = 0.0
             if (price!=None):
                 self.priceFormat(str(price))
             date=line.css('span.t5::text').extract_first()
@@ -52,6 +57,15 @@ class WuyouSpider(scrapy.Spider):
             date=year+'-'+date
             dict['region']=region
             dict['date'] = date
+            avgprice=round(self.avgprice,2)
+            minprice = round(self.avgprice, 2)
+            maxprice=round(self.avgprice,2)
+            if(avgprice>20):
+                print(response.url)
+                print('aa')
+            dict['minprice']=minprice
+            dict['maxprice']=maxprice
+            dict['avgprice']=avgprice
             yield Request(url,self.parse1,meta=dict)
         nexturl=response.css('#resultList  div.dw_page div.p_in li.bk a::attr(href)').extract_first()
         if(nexturl!=None):
@@ -76,6 +90,8 @@ class WuyouSpider(scrapy.Spider):
         t=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         dict = response.meta
         item=QianchengItem()
+        if(len(position)>30):
+            return
         if(dict==None):
             return
         if(position==None):
@@ -88,9 +104,9 @@ class WuyouSpider(scrapy.Spider):
         item['region'] = dict['region']
         item['date'] = dict['date']
         item['time'] = t
-        item['maxPrice'] = self.maxprice
-        item['minPrice'] = self.minprice
-        item['avgPrice'] = self.avgprice
+        item['maxPrice'] = dict['maxprice']
+        item['minPrice'] = dict['minprice']
+        item['avgPrice'] = dict['avgprice']
         item['profession'] = profession
         item['companyType'] = companyType
         item['cotype'] = dict['cotype']
