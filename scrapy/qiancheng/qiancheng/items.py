@@ -28,7 +28,7 @@ class QianchengItem(scrapy.Item):
     workyear = Field()
     companySize = Field()
     jobTerm = Field()
-
+    positionUrl=Field()
 
 
     pass

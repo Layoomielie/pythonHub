@@ -60,9 +60,6 @@ class WuyouSpider(scrapy.Spider):
             avgprice=round(self.avgprice,2)
             minprice = round(self.avgprice, 2)
             maxprice=round(self.avgprice,2)
-            if(avgprice>20):
-                print(response.url)
-                print('aa')
             dict['minprice']=minprice
             dict['maxprice']=maxprice
             dict['avgprice']=avgprice
@@ -114,11 +111,12 @@ class WuyouSpider(scrapy.Spider):
         item['workyear'] = dict['workyear']
         item['companySize'] = dict['companySize']
         item['jobTerm'] = dict['jobTerm']
+        item['positionUrl']=response.url
         yield item
 
 
     def priceFormat(self,price):
-        print(price)
+        #print(price)
         if(price.find('月')!=-1):
             if(price.find('万')!=-1):
                 if(price.find('-')!=-1):
