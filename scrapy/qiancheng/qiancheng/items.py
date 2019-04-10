@@ -30,5 +30,3 @@ class QianchengItem(scrapy.Item):
     jobTerm = Field()
     positionUrl=Field()
 
-
-    pass
