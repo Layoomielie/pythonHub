@@ -62,12 +62,12 @@ class WuyouSpider(scrapy.Spider):
             date=year+'-'+date
             dict['region']=region
             dict['date'] = date
-            # avgprice=round(self.avgprice,2)
-            # minprice = round(self.minprice, 2)
-            # maxprice=round(self.maxprice,2)
-            dict['minprice']=self.minprice
-            dict['maxprice']=self.maxprice
-            dict['avgprice']=self.avgprice
+            avgprice=round(self.avgprice,2)
+            minprice = round(self.minprice, 2)
+            maxprice=round(self.maxprice,2)
+            dict['minprice']=minprice
+            dict['maxprice']=maxprice
+            dict['avgprice']=avgprice
 
             yield Request(url,self.parse3,meta=dict,dont_filter=True)
         nexturl=response.css('#resultList  div.dw_page div.p_in li.bk a::attr(href)').extract_first()
