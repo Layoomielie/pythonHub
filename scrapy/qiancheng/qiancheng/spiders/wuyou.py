@@ -26,23 +26,23 @@ class WuyouSpider(scrapy.Spider):
 
 
     def start_requests(self):
-        for city in self.citydict:
-            for cotype in self.cotypedict:
-                for workyear in self.workyeardict:
-                    for companysize in self.companysizedict:
-                        for jobterm in self.jobtermdict:
-                            for degree in self.degreedict:
-                                dict={'city':self.citydict[city],'cotype':self.cotypedict[cotype],'workyear':self.workyeardict[workyear],'companySize':self.companysizedict[companysize],'jobTerm':self.jobtermdict[jobterm],'degree':self.degreedict[degree]}
-                                yield Request(self.url.format(city=city,cotype=cotype,workyear=workyear,companysize=companysize,jobterm=jobterm,degree=degree),self.parse,meta=dict)
+        # for city in self.citydict:
+        #     for cotype in self.cotypedict:
+        #         for workyear in self.workyeardict:
+        #             for companysize in self.companysizedict:
+        #                 for jobterm in self.jobtermdict:
+        #                     for degree in self.degreedict:
+        #                         dict={'city':self.citydict[city],'cotype':self.cotypedict[cotype],'workyear':self.workyeardict[workyear],'companySize':self.companysizedict[companysize],'jobTerm':self.jobtermdict[jobterm],'degree':self.degreedict[degree]}
+        #                         yield Request(self.url.format(city=city,cotype=cotype,workyear=workyear,companysize=companysize,jobterm=jobterm,degree=degree),self.parse,meta=dict)
 
-        # dict = {'city': 'city', 'cotype': 'cotype', 'workyear': 'workyear',
-        #         'companySize': 'companySize', 'jobTerm': 'jobTerm',
-        #         'degree': 'degree'}
-        # yield Request(
-        #     'https://search.51job.com/list/010000,000000,0000,00,9,99,%2520,2,1.html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare=',
-        #     self.parse, meta=dict)
+        dict = {'city': 'city', 'cotype': 'cotype', 'workyear': 'workyear',
+                'companySize': 'companySize', 'jobTerm': 'jobTerm',
+                'degree': 'degree'}
+        yield Request(
+            'https://search.51job.com/list/010000,000000,0000,00,9,99,%2520,2,1.html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare=',
+            self.parse1, meta=dict)
 
-    def parse(self, response):
+    def parse1(self, response):
         lines=response.css('#resultList div.el:not(div.title)')
         dict = response.meta
         for line in lines:
@@ -69,12 +69,12 @@ class WuyouSpider(scrapy.Spider):
             dict['maxprice']=self.maxprice
             dict['avgprice']=self.avgprice
 
-            yield Request(url,self.parse2,meta=dict)
+            yield Request(url,self.parse3,meta=dict,dont_filter=True)
         nexturl=response.css('#resultList  div.dw_page div.p_in li.bk a::attr(href)').extract_first()
         if(nexturl!=None):
-            yield Request(str(nexturl),self.parse,meta=dict)
+            yield Request(str(nexturl),self.parse1,meta=dict,dont_filter=True)
 
-    def parse2(self, response):
+    def parse3(self, response):
 
         header=response.css('div.tHeader div.cn')
         position=header.css('h1::attr(title)').extract_first()
@@ -93,8 +93,6 @@ class WuyouSpider(scrapy.Spider):
         t=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         dict = response.meta
         item=QianchengItem()
-        if(len(position)>30):
-            return
         if(dict==None):
             return
         if(position==None):
@@ -106,7 +104,7 @@ class WuyouSpider(scrapy.Spider):
         item['city'] = dict['city']
         item['region'] = dict['region']
         item['date'] = dict['date']
-        item['crawlTime'] = t
+        item['time'] = t
         item['maxPrice'] = dict['maxprice']
         item['minPrice'] = dict['minprice']
         item['avgPrice'] = dict['avgprice']
