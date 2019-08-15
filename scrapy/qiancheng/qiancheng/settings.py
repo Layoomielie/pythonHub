@@ -22,6 +22,10 @@ MYSQL_PASSWORD='44253432'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'qiancheng (+http://www.yourdomain.com)'
 
+
+MONGO_URL = '47.101.171.168'
+MONGO_DATABASE = 'local'
+
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
@@ -31,11 +35,11 @@ SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 # 改用redis的去重
 DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 
-#REDIS_HOST = '47.101.171.168'
-#REDIS_PORT = 6379
+REDIS_HOST = '47.101.171.168'
+REDIS_PORT = 6379
 #REDIS_PASSWORD = "44253432"
 
-REDIS_URL = 'redis://root:44253432@47.101.171.168:6379'
+#REDIS_URL = 'redis://root:44253432@47.101.171.168:6379'
 #设置断点续爬
 SCHEDULER_PERSIST = False
 
@@ -87,7 +91,8 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'qiancheng.pipelines.QianchengPipeline': 300,
-    'qiancheng.pipelines.MysqlPipeline': 301,
+#    'qiancheng.pipelines.MysqlPipeline': 301,
+    'qiancheng.pipelines.MongoPipeline': 301,
 
 }
 
