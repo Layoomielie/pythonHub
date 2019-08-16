@@ -35,7 +35,7 @@ SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 # 改用redis的去重
 DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 
-REDIS_HOST = '47.101.171.168'
+REDIS_HOST = '139.224.233.92'
 REDIS_PORT = 6379
 #REDIS_PASSWORD = "44253432"
 
