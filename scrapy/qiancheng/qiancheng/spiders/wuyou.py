@@ -13,7 +13,8 @@ class WuyouSpider(scrapy.Spider):
     url='https://search.51job.com/list/{city},000000,0000,00,9,99,%2B,2,1.html?lang=c&stype=1&postchannel=0000&workyear={workyear}&cotype={cotype}&degreefrom={degree}&jobterm={jobterm}&companysize={companysize}&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=8&dibiaoid=0&address=&line=&specialarea=00&from=&welfare='
     dayurl = 'https://search.51job.com/list/{city},000000,0000,00,0,99,%2B,2,1.html?lang=c&stype=1&postchannel=0000&workyear={workyear}&cotype={cotype}&degreefrom={degree}&jobterm={jobterm}&companysize={companysize}&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=8&dibiaoid=0&address=&line=&specialarea=00&from=&welfare='
 
-    citydict={'010000':'北京','020000':'上海','030200':'广州','040000':'深圳','080200':'杭州','180200':'武汉','200200':'西安','070200':'南京','090200':'成都','060000':'重庆','030800':'东莞','070300':'苏州','190200':'长沙','150200':'合肥','080300':'宁波','170200':'郑州','050000':'天津','120300':'青岛','030600':'佛山','030500':'珠海'}
+    #citydict={'010000':'北京','020000':'上海','030200':'广州','040000':'深圳','080200':'杭州','180200':'武汉','200200':'西安','070200':'南京','090200':'成都','060000':'重庆','030800':'东莞','070300':'苏州','190200':'长沙','150200':'合肥','080300':'宁波','170200':'郑州','050000':'天津','120300':'青岛','030600':'佛山','030500':'珠海'}
+    citydict = {'010000': '北京', '020000': '上海', '030200': '广州', '040000': '深圳', '080200': '杭州'}
     cotypedict={'01':'外资(欧美)','02':'外资(非欧美)','03':'合资','04':'国企','05':'民营公司','06':'外企代表处','07':'政府机关','08':'事业单位','09':'非盈利组织','10':'上市公司','11':'创业公司'}
     workyeardict={'01':'无经验','02':'1-3年','03':'3-5年','04':'5-10年','05':'10年以上'}
     companysizedict = {'01': '少于50人', '02': '50-150人', '03': '150-500人', '04': '500-1000人', '05': '1000-5000人', '06': '5000-10000人', '07': '10000人以上'}

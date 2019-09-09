@@ -14,11 +14,11 @@ BOT_NAME = 'qiancheng'
 SPIDER_MODULES = ['qiancheng.spiders']
 NEWSPIDER_MODULE = 'qiancheng.spiders'
 
-MYSQL_HOST='47.101.171.168'
+MYSQL_HOST='rm-uf6h10w84d8f1wy4p7o.mysql.rds.aliyuncs.com'
 MYSQL_DATABASE='scrapy'
 MYSQL_PORT=3306
 MYSQL_USER='root'
-MYSQL_PASSWORD='44253432'
+MYSQL_PASSWORD='Sink44253432'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'qiancheng (+http://www.yourdomain.com)'
 
@@ -41,7 +41,7 @@ REDIS_PORT = 6379
 
 #REDIS_URL = 'redis://root:44253432@47.101.171.168:6379'
 #设置断点续爬
-SCHEDULER_PERSIST = False
+SCHEDULER_PERSIST = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -91,8 +91,8 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'qiancheng.pipelines.QianchengPipeline': 300,
-#    'qiancheng.pipelines.MysqlPipeline': 301,
-    'qiancheng.pipelines.MongoPipeline': 301,
+    'qiancheng.pipelines.MysqlPipeline': 301,
+#    'qiancheng.pipelines.MongoPipeline': 301,
 
 }
 
