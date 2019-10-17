@@ -23,20 +23,20 @@ MYSQL_PASSWORD='Sink44253432'
 #USER_AGENT = 'qiancheng (+http://www.yourdomain.com)'
 
 
-MONGO_URL = '47.101.171.168'
-MONGO_DATABASE = 'local'
+#MONGO_URL = '47.101.171.168'
+#MONGO_DATABASE = 'local'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+#ROBOTSTXT_OBEY = True
 
 # redis配置
 # 改用redis的调度器
-SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+#SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 # 改用redis的去重
-DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+#DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 
-REDIS_HOST = '139.224.233.92'
-REDIS_PORT = 6379
+#REDIS_HOST = '139.224.233.92'
+#REDIS_PORT = 6379
 #REDIS_PASSWORD = "44253432"
 
 #REDIS_URL = 'redis://root:44253432@47.101.171.168:6379'
@@ -59,7 +59,7 @@ SCHEDULER_PERSIST = True
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
-RANDOM_DELAY=2
+#RANDOM_DELAY=2
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',

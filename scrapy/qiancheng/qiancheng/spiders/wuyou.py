@@ -71,9 +71,9 @@ class WuyouSpider(scrapy.Spider):
             dict['avgprice']=avgprice
 
             yield Request(url,self.parse3,meta=dict,dont_filter=True)
-        nexturl=response.css('#resultList  div.dw_page div.p_in li.bk a::attr(href)').extract_first()
-        if(nexturl!=None):
-            yield Request(str(nexturl),self.parse1,meta=dict,dont_filter=True)
+        #nexturl=response.css('#resultList  div.dw_page div.p_in li.bk a::attr(href)').extract_first()
+        #if(nexturl!=None):
+            #yield Request(str(nexturl),self.parse1,meta=dict,dont_filter=True)
 
     def parse3(self, response):
 
