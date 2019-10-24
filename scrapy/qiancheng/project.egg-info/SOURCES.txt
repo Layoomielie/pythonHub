@@ -1,0 +1,15 @@
+setup.py
+project.egg-info/PKG-INFO
+project.egg-info/SOURCES.txt
+project.egg-info/dependency_links.txt
+project.egg-info/entry_points.txt
+project.egg-info/top_level.txt
+qiancheng/__init__.py
+qiancheng/es_type.py
+qiancheng/items.py
+qiancheng/main.py
+qiancheng/middlewares.py
+qiancheng/pipelines.py
+qiancheng/settings.py
+qiancheng/spiders/__init__.py
+qiancheng/spiders/wuyou.py

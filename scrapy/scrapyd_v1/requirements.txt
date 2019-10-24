@@ -13,3 +13,4 @@ scrapyd-client
 scrapy-splash
 pymongo
 scrapy-redis
+elasticsearch
