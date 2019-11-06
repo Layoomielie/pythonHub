@@ -5,17 +5,15 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pymysql
-import pymongo
 from elasticsearch import Elasticsearch
 import time, datetime
 from pandas._libs import json
-
-from git.pythonHub.scrapy.qiancheng.qiancheng.items import QianchengItem
 
 
 class QianchengPipeline(object):
     def process_item(self, item, spider):
         return item
+
 
 class MysqlPipeline():
     def __init__(self, host, database, user, password, port):
@@ -39,16 +37,16 @@ class MysqlPipeline():
         self.db = pymysql.connect(self.host, self.user, self.password, self.database, charset='utf8', port=self.port)
         self.cursor = self.db.cursor()
 
-    def close_spider(self,spider):
+    def close_spider(self, spider):
         self.db.close()
 
-    def process_item(self,item,spider):
-        data=dict(item)
-        keys=','.join(data.keys())
-        values=','.join(['%s']*len(data))
-        table='qiancheng'
-        sql='insert into %s (%s) values (%s)'%(table,keys,values)
-        self.cursor.execute(sql,tuple(data.values()))
+    def process_item(self, item, spider):
+        data = dict(item)
+        keys = ','.join(data.keys())
+        values = ','.join(['%s'] * len(data))
+        table = 'qiancheng'
+        sql = 'insert into %s (%s) values (%s)' % (table, keys, values)
+        self.cursor.execute(sql, tuple(data.values()))
         self.db.commit()
         return item
 
@@ -78,12 +76,17 @@ class MongoPipeline(object):
         self.db[self.collection_name].insert_one(dict(item))
         return item
 
+
 class ESPipeline(object):
     collection_name = 'qiancheng'  # 这里的地方是连接的数据库表的名字
-    index="qiancheng"
-    type="doc"
+    index = "qiancheng"
+    type = "doc"
+
     def __init__(self, es_host):
         self.es_host = es_host
+        year = datetime.datetime.now().year
+        month = datetime.datetime.now().month
+        self.index = self.index + "-" + str(year) + "-" + str(month)
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -98,16 +101,15 @@ class ESPipeline(object):
         pass
 
     def process_item(self, item, spider):
-        #result = self.es.index(index=self.index, doc_type='doc', body=item)
-        if isinstance(item,QianchengItem):
-            item_dict =dict(item)
-            timestr=item_dict['time']
+        # result = self.es.index(index=self.index, doc_type='doc', body=item)
+        if item != None:
+            item_dict = dict(item)
+            timestr = item_dict['time']
             timeArray = time.strptime(timestr, "%Y-%m-%d %H:%M:%S")
             otherStyleTime = time.strftime("%Y-%m-%dT%H:%M:%S", timeArray)
-            item_dict['time']=otherStyleTime
+            item_dict['time'] = otherStyleTime
             # json_str =json.dumps(item_dict)+','
             # position=item['position']
             # obj={"position":position}
-            #print(item_dict)
+            # print(item_dict)
             result = self.es.index(index=self.index, doc_type='doc', body=item_dict)
-

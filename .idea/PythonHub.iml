@@ -15,7 +15,7 @@
       <sourceFolder url="file://$MODULE_DIR$/scrapy/scrapySeleniumTest/scrapySeleniumTest" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/scrapy/scrapySeleniumTest" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.7 (python-work)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="R Skeletons" level="application" />
     <orderEntry type="library" name="R User Library" level="project" />

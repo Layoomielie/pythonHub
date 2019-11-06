@@ -92,7 +92,7 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'qiancheng.pipelines.QianchengPipeline': 300,
-    'qiancheng.pipelines.MysqlPipeline': 302,
+    #'qiancheng.pipelines.MysqlPipeline': 302,
     'qiancheng.pipelines.ESPipeline': 301,
 #    'qiancheng.pipelines.MongoPipeline': 301,
 
